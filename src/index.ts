@@ -1,14 +1,20 @@
 import express from "express";
+import { connectDB } from "./db";
+import dotenv from "dotenv";
+import userRoutes from "./routes/userRoute";
+
+dotenv.config();
 
 const app = express();
+app.use(express.json());
 
 // Explicit type 
 const port : number = 5001;
 
-app.get("/", (req, res)=> {
-    res.json({message : 'Hello from backend'})
-});
+app.use('/api/auth', userRoutes);
 
-app.listen(port, () => {
-    console.log(`Server is running in ${port}`)
+connectDB().then(() => {
+    app.listen(port, () => {
+        console.log(`server is running at ${port}`)
+    })
 })
