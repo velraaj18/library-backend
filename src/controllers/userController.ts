@@ -1,6 +1,18 @@
 import User from "../models/User";
 import { Request, Response } from "express";
 
+// Get all the users
+export const getAllUsers = async(req : Request, res : Response) => {
+    try {
+        const users = await User.find();
+        if(users){
+            res.status(200).json({message: 'Users Retreived', users});
+        }
+    } catch (error) {
+        res.status(500).json({message : 'Bad request'});
+    }
+}
+
 // In register, check if email is already in user table if not store the new entry in User.
 export const register = async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
