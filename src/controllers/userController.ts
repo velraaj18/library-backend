@@ -13,7 +13,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
     const users = await User.find().select({ password: 0 });
     if (users) {
       res.status(200).json({ message: "Users Retreived", users });
-      console.log(users);
+      //console.log(users);
     }
   } catch (error) {
     res.status(500).json({ message: "Bad request" });
@@ -67,12 +67,12 @@ export const login = async (req: Request, res: Response) => {
       }
 
       const jwtToken = jwt.sign(
-        { id: user._id, email: user.email },
+        { id: user._id, email: user.email, name: user.name },
         process.env.JWT_SECRET as string,
         { expiresIn: "1h" }
       );
 
-      console.log(jwtToken)
+      //console.log(jwtToken)
       res.status(200).json({ message: "User found", jwtToken, user});
     }
   } catch (error) {
