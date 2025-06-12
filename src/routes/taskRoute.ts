@@ -6,6 +6,6 @@ import { authenticateToken } from "../middleware/auth";
 const router = Router();
 
 router.get('/', authenticateToken, getTaskByUser);
-router.post('/createTask', createNewTask);
+router.post('/createTask', authenticateToken, createNewTask);
 
 export default router;
